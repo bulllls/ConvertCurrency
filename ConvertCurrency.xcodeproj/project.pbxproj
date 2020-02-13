@@ -85,7 +85,6 @@
 				9BC75CA423F3F82800D9CE33 /* Assets.xcassets */,
 				9BC75CA623F3F82800D9CE33 /* LaunchScreen.storyboard */,
 				9BC75CA923F3F82800D9CE33 /* Info.plist */,
-				9BC75CA123F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld */,
 			);
 			path = ConvertCurrency;
 			sourceTree = "<group>";
@@ -112,6 +111,7 @@
 			children = (
 				9BC75CAF23F433DF00D9CE33 /* Network */,
 				9BC75CC123F57D8300D9CE33 /* Currency.swift */,
+				9BC75CA123F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";

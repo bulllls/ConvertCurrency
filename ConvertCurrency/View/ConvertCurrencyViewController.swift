@@ -12,24 +12,62 @@ class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var from: UIPickerView!
     @IBOutlet weak var amount: UITextField!
     @IBOutlet weak var result: UILabel!
+    @IBOutlet weak var firsStackView: UIStackView!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var secondStackView: UIStackView!
     var viewModel = ConvertCurrencyViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //получаем валюту
         viewModel.net.fechAllCurrensyIndex()
+        //не даем клавиатуре перекрывать inputField
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height / 5
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    //прячем клавиатуру
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        amount.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
+    //обновляем результат
     func update(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.result.text = self?.viewModel.net.value
         }
     }
+    //конвертируем
     @IBAction func convert(_ sender: Any) {
+        amount.endEditing(true)
         viewModel.net.currencyConverter(from: viewModel.from, to: viewModel.to, amount: amount.text ?? "1", completionHandler: update())
+    }
+    //выбираем другую валюту
+    @IBAction func another(_ sender: Any) {
+        firsStackView.isHidden = true
+        from.reloadAllComponents()
+        secondStackView.isHidden = false
+    }
+    //возвращаемся с новой валютой
+    @IBAction func back(_ sender: Any) {
+        fromLabel.text = viewModel.from
+        toLabel.text = viewModel.to
+        secondStackView.isHidden = true
+        firsStackView.isHidden = false
     }
 }
 

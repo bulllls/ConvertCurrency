@@ -39,7 +39,7 @@ class Network {
                         self.currency = self.realm.objects(Currency1.self)
                     }
                 }
-                print("999", self.currency)
+                print("currency", self.currency)
             case .failure(let error):
                 print(error.localizedDescription)
             }
