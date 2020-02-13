@@ -8,11 +8,11 @@
 
 import UIKit
 import Alamofire
-import CoreData
+import RealmSwift
 
-struct Currency0 {
-    var index: String
-    var fullDiscription: String
+class Currency1: Object {
+    @objc dynamic var index = ""
+    @objc dynamic var fullDiscription = ""
 }
 
 class ConvertCurrencyViewController: UIViewController {
@@ -20,93 +20,56 @@ class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var to: UIPickerView!
     @IBOutlet weak var amount: UITextField!
     @IBOutlet weak var result: UILabel!
-    var curr = [Currency0]()
-    var test = ["1", "2", "3","4", "5", "6","7", "8", "9","10", "11", "12","13"]
     var net = Network()
-    
-    lazy var frc: NSFetchedResultsController<Currency> = {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { fatalError() }
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<Currency>(entityName: "Currency")
-        //сортировка
-        let descriptor = NSSortDescriptor(key: "index", ascending: true)
-        request.sortDescriptors = [descriptor]
-        let controller = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        return controller
-    }()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-       
-        
-    }
+    var from1 = "USD"
+    var to1 = "RUB"
     override func viewDidLoad() {
         super.viewDidLoad()
-        curr = net.fechAllCurrensyIndex()
-        
         from.delegate = self
         from.dataSource = self
-        
+        net.fechAllCurrensyIndex()
         
         
     }
-
-
+    func update(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.result.text = self?.net.value
+        }
+    }
     @IBAction func convert(_ sender: Any) {
-        result.text = net.currencyConverter()
+        net.currencyConverter(from: from1, to: to1, amount: amount.text ?? "1", completionHandler: update())
     }
 }
 
 extension ConvertCurrencyViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return test.count
+        return net.currency.count
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return test[row]
-    }
-    
-    
-}
-
-//Слежу за изменениями и обновляю базу данных
-extension ConvertCurrencyViewController: NSFetchedResultsControllerDelegate {
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        from.reloadAllComponents()
-        //todoTableview.beginUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .insert:
-//            todoTableview.insertRows(at: [indexPath ?? newIndexPath ?? IndexPath(row: 0, section: 0)], with: .fade)
-//        case .delete:
-//            todoTableview.deleteRows(at: [indexPath!], with: .fade)
-//        case .move:
-//            todoTableview.moveRow(at: indexPath!, to: newIndexPath!)
-//        case .update:
-//            todoTableview.reloadRows(at: [indexPath!], with: .fade)
-//        @unknown default:
-//            fatalError()
-//        }
-    }
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            return net.currency[row].index
+        default:
+            return net.currency.reversed()[row].index
+        }
         
     }
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //todoTableview.endUpdates()
-    }
-    
-    //сохраняю в базу
-    func saveNewTask(index: String, desc: String) {
-        let newTask = Currency(context: frc.managedObjectContext)
-        newTask.index = index
-        newTask.desc = desc
-        try? frc.managedObjectContext.save()
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            from1 = net.currency[row].index
+            print(from1)
+        default:
+            to1 = net.currency.reversed()[row].index
+            print(to1)
+        }
     }
     
 }
+

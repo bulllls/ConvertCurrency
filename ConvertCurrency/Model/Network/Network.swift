@@ -8,14 +8,13 @@
 
 import Foundation
 import Alamofire
-import CoreData
+import RealmSwift
 
 class Network {
-    var data = FRC()
-    
-    
-    func fechAllCurrensyIndex() -> [Currency0]{
-        var currencies = [Currency0]()
+    let realm = try! Realm()
+    lazy var currency: Results<Currency1> = { self.realm.objects(Currency1.self) }()
+    var value: String?
+    func fechAllCurrensyIndex(){
         let parametrs: Parameters = [
             "x-rapidapi-host": "currency-converter5.p.rapidapi.com",
             "x-rapidapi-key": "94d966144cmshe4f021342f75374p108d75jsnfb980c2ff046"
@@ -28,24 +27,27 @@ class Network {
                     let json = value as? [String : Any],
                     let results = json["currencies"] as? [String : String]
                     else { return }
-                for item in results {
-                    let newTask = Currency(context: self.data.frc.managedObjectContext)
-                    newTask.index = item.key
-                    newTask.desc = item.value
-                    try? self.data.frc.managedObjectContext.save()
-                    print("======>", self.data.frc.fetchedObjects?.endIndex)
-                    currencies.append(Currency0(index: item.key, fullDiscription: item.value))
+                    if self.currency.count == 0 {
+                         for item in results {
+                        try! self.realm.write() {
+                            let newCyrr = Currency1()
+                            newCyrr.index = item.key
+                            newCyrr.fullDiscription = item.value
+                            self.realm.add(newCyrr)
+                            print(newCyrr.index)
+                        }
+                        self.currency = self.realm.objects(Currency1.self)
+                    }
                 }
-                print("999", currencies)
+                print("999", self.currency)
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-        return currencies
     }
     
-    func currencyConverter(from: String = "USD", to: String = "RUB", amount: String = "1") -> String {
-        var result = ""
+    func currencyConverter(from: String = "USD", to: String = "RUB", amount: String, completionHandler: ()) {
+        //self.value = nil
         let parametrs: Parameters = [
             "x-rapidapi-host": "currency-converter5.p.rapidapi.com",
             "x-rapidapi-key": "94d966144cmshe4f021342f75374p108d75jsnfb980c2ff046"
@@ -57,14 +59,14 @@ class Network {
                 guard
                     let json = value as? [String : Any],
                     let results = json["rates"] as? [String : [String : String]],
-                    let res = results[to]?["rate"]
+                    let res = results[to]?["rate_for_amount"]
                     else { return }
-                result = res
-                print("res = \(res), result = \(result)")
+                self.value = res
+               // print(self.value)
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-        return result
+        //return result
     }
 }
