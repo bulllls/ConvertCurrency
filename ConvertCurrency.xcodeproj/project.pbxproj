@@ -16,8 +16,7 @@
 		9BC75CA823F3F82800D9CE33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC75CA623F3F82800D9CE33 /* LaunchScreen.storyboard */; };
 		9BC75CB123F433F700D9CE33 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CB023F433F700D9CE33 /* Network.swift */; };
 		9BC75CB623F4355B00D9CE33 /* ConvertCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CB523F4355B00D9CE33 /* ConvertCurrencyViewModel.swift */; };
-		9BC75CBD23F4513600D9CE33 /* Currency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CBB23F4513500D9CE33 /* Currency+CoreDataProperties.swift */; };
-		9BC75CBE23F4513600D9CE33 /* Currency+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CBC23F4513500D9CE33 /* Currency+CoreDataClass.swift */; };
+		9BC75CC223F57D8300D9CE33 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CC123F57D8300D9CE33 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +32,7 @@
 		9BC75CA923F3F82800D9CE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BC75CB023F433F700D9CE33 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		9BC75CB523F4355B00D9CE33 /* ConvertCurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyViewModel.swift; sourceTree = "<group>"; };
-		9BC75CBB23F4513500D9CE33 /* Currency+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Currency+CoreDataProperties.swift"; path = "../../../../../.Trash/Currency+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BC75CBC23F4513500D9CE33 /* Currency+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Currency+CoreDataClass.swift"; path = "../../../../../.Trash/Currency+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9BC75CC123F57D8300D9CE33 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		CA1838D69638B4EC71F94587 /* Pods-ConvertCurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConvertCurrency.debug.xcconfig"; path = "Target Support Files/Pods-ConvertCurrency/Pods-ConvertCurrency.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,9 +110,8 @@
 		9BC75CB323F4352100D9CE33 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9BC75CBC23F4513500D9CE33 /* Currency+CoreDataClass.swift */,
-				9BC75CBB23F4513500D9CE33 /* Currency+CoreDataProperties.swift */,
 				9BC75CAF23F433DF00D9CE33 /* Network */,
+				9BC75CC123F57D8300D9CE33 /* Currency.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,12 +247,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC75CC223F57D8300D9CE33 /* Currency.swift in Sources */,
 				9BC75C9D23F3F82700D9CE33 /* ConvertCurrencyViewController.swift in Sources */,
 				9BC75CA323F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld in Sources */,
-				9BC75CBE23F4513600D9CE33 /* Currency+CoreDataClass.swift in Sources */,
 				9BC75CB123F433F700D9CE33 /* Network.swift in Sources */,
 				9BC75C9B23F3F82700D9CE33 /* AppDelegate.swift in Sources */,
-				9BC75CBD23F4513600D9CE33 /* Currency+CoreDataProperties.swift in Sources */,
 				9BC75CB623F4355B00D9CE33 /* ConvertCurrencyViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

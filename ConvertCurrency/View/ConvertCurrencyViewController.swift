@@ -7,37 +7,29 @@
 //
 
 import UIKit
-import Alamofire
-import RealmSwift
-
-class Currency1: Object {
-    @objc dynamic var index = ""
-    @objc dynamic var fullDiscription = ""
-}
 
 class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var from: UIPickerView!
-    @IBOutlet weak var to: UIPickerView!
     @IBOutlet weak var amount: UITextField!
     @IBOutlet weak var result: UILabel!
-    var net = Network()
-    var from1 = "USD"
-    var to1 = "RUB"
+    var viewModel = ConvertCurrencyViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        from.delegate = self
-        from.dataSource = self
-        net.fechAllCurrensyIndex()
-        
-        
+        viewModel.net.fechAllCurrensyIndex()
+
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
     }
     func update(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.result.text = self?.net.value
+            self?.result.text = self?.viewModel.net.value
         }
     }
     @IBAction func convert(_ sender: Any) {
-        net.currencyConverter(from: from1, to: to1, amount: amount.text ?? "1", completionHandler: update())
+        viewModel.net.currencyConverter(from: viewModel.from, to: viewModel.to, amount: amount.text ?? "1", completionHandler: update())
     }
 }
 
@@ -47,15 +39,15 @@ extension ConvertCurrencyViewController: UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return net.currency.count
+        return viewModel.net.currency.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return net.currency[row].index
+            return viewModel.net.currency[row].index
         default:
-            return net.currency.reversed()[row].index
+            return viewModel.net.currency.reversed()[row].index
         }
         
     }
@@ -63,11 +55,11 @@ extension ConvertCurrencyViewController: UIPickerViewDelegate, UIPickerViewDataS
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            from1 = net.currency[row].index
-            print(from1)
+            viewModel.from = viewModel.net.currency[row].index
+            print(viewModel.from)
         default:
-            to1 = net.currency.reversed()[row].index
-            print(to1)
+            viewModel.to = viewModel.net.currency.reversed()[row].index
+            print(viewModel.to)
         }
     }
     

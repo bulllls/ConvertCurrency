@@ -46,8 +46,7 @@ class Network {
         }
     }
     
-    func currencyConverter(from: String = "USD", to: String = "RUB", amount: String, completionHandler: ()) {
-        //self.value = nil
+    func currencyConverter(from: String, to: String, amount: String, completionHandler: ()) {
         let parametrs: Parameters = [
             "x-rapidapi-host": "currency-converter5.p.rapidapi.com",
             "x-rapidapi-key": "94d966144cmshe4f021342f75374p108d75jsnfb980c2ff046"
@@ -67,6 +66,5 @@ class Network {
                 print(error.localizedDescription)
             }
         }
-        //return result
     }
 }

@@ -9,5 +9,8 @@
 import Foundation
 
 class ConvertCurrencyViewModel {
+    var net = Network()
+    var from = "USD"
+    var to = "RUB"
     
 }
