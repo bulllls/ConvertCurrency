@@ -16,10 +16,13 @@ class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
     @IBOutlet weak var secondStackView: UIStackView!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var activityView: UIView!
     var viewModel = ConvertCurrencyViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         activityView.isHidden = true
         //получаем валюту
         viewModel.net.fechAllCurrensyIndex()
         //не даем клавиатуре перекрывать inputField
@@ -49,11 +52,15 @@ class ConvertCurrencyViewController: UIViewController {
     func update(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.result.text = self?.viewModel.net.value
+            self?.activity.stopAnimating()
+            self?.activityView.isHidden = true
         }
     }
     //конвертируем
     @IBAction func convert(_ sender: Any) {
         amount.endEditing(true)
+        activity.startAnimating()
+        activityView.isHidden = false
         viewModel.net.currencyConverter(from: viewModel.from, to: viewModel.to, amount: amount.text ?? "1", completionHandler: update())
     }
     //выбираем другую валюту

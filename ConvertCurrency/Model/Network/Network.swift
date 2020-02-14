@@ -41,6 +41,7 @@ class Network {
                 }
                 print("currency", self.currency)
             case .failure(let error):
+                self.value = "No Connect"
                 print(error.localizedDescription)
             }
         }
