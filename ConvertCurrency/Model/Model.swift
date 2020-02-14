@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Currency1: Object {
+class Currency: Object {
     @objc dynamic var index = ""
     @objc dynamic var fullDiscription = ""
 }

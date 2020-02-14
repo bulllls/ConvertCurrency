@@ -10,8 +10,24 @@ import Foundation
 import UIKit
 
 class ConvertCurrencyViewModel {
-    var net = Network()
+    var networkManager = Network()
+    var dataBase = DataBase()
     var from = "USD"
     var to = "RUB"
+    var amount: String?
+    var resultValue: String?
+    lazy var currency = {
+        return self.dataBase.currency
+    }
     
+    func getAmountConvertiblCurrency() {
+        networkManager.convertСurrency(from: from, to: to, amount: amount) { [weak self] (result) in
+            self?.resultValue = result
+            print("RESULT", result)
+        }
+    }
+    
+    func getValueAllCurrencies() {
+        dataBase.getIdAllCurrencies()
+    }
 }

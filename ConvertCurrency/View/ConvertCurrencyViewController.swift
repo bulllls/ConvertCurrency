@@ -24,7 +24,7 @@ class ConvertCurrencyViewController: UIViewController {
         super.viewDidLoad()
          activityView.isHidden = true
         //получаем валюту
-        viewModel.net.fechAllCurrensyIndex()
+        viewModel.getValueAllCurrencies()
         //не даем клавиатуре перекрывать inputField
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -48,20 +48,19 @@ class ConvertCurrencyViewController: UIViewController {
         amount.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
-    //обновляем результат
-    func update(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.result.text = self?.viewModel.net.value
-            self?.activity.stopAnimating()
-            self?.activityView.isHidden = true
-        }
-    }
+
     //конвертируем
     @IBAction func convert(_ sender: Any) {
         amount.endEditing(true)
         activity.startAnimating()
         activityView.isHidden = false
-        viewModel.net.currencyConverter(from: viewModel.from, to: viewModel.to, amount: amount.text ?? "1", completionHandler: update())
+        viewModel.amount = amount.text
+        viewModel.getAmountConvertiblCurrency()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.result.text = self?.viewModel.resultValue
+            self?.activity.stopAnimating()
+            self?.activityView.isHidden = true
+        }
     }
     //выбираем другую валюту
     @IBAction func another(_ sender: Any) {
@@ -84,26 +83,25 @@ extension ConvertCurrencyViewController: UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return viewModel.net.currency.count
+        return viewModel.dataBase.currency.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return viewModel.net.currency[row].index
+            return viewModel.currency()[row].index
         default:
-            return viewModel.net.currency.reversed()[row].index
+            return viewModel.currency().reversed()[row].index
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            viewModel.from = viewModel.net.currency[row].index
+            viewModel.from = viewModel.currency()[row].index
             print(viewModel.from)
         default:
-            viewModel.to = viewModel.net.currency.reversed()[row].index
+            viewModel.to = viewModel.currency().reversed()[row].index
             print(viewModel.to)
         }
     }
