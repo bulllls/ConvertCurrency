@@ -11,5 +11,5 @@ import RealmSwift
 
 class Currency: Object {
     @objc dynamic var index = ""
-    @objc dynamic var fullDiscription = ""
+    @objc dynamic var fullDescription = ""
 }

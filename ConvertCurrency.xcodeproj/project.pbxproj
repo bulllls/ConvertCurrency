@@ -15,7 +15,7 @@
 		9BC75CA323F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CA123F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld */; };
 		9BC75CA523F3F82800D9CE33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC75CA423F3F82800D9CE33 /* Assets.xcassets */; };
 		9BC75CA823F3F82800D9CE33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC75CA623F3F82800D9CE33 /* LaunchScreen.storyboard */; };
-		9BC75CB123F433F700D9CE33 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CB023F433F700D9CE33 /* Network.swift */; };
+		9BC75CB123F433F700D9CE33 /* NetworManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CB023F433F700D9CE33 /* NetworManager.swift */; };
 		9BC75CB623F4355B00D9CE33 /* ConvertCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CB523F4355B00D9CE33 /* ConvertCurrencyViewModel.swift */; };
 		9BC75CC223F57D8300D9CE33 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC75CC123F57D8300D9CE33 /* Model.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +32,7 @@
 		9BC75CA423F3F82800D9CE33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BC75CA723F3F82800D9CE33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BC75CA923F3F82800D9CE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BC75CB023F433F700D9CE33 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		9BC75CB023F433F700D9CE33 /* NetworManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworManager.swift; sourceTree = "<group>"; };
 		9BC75CB523F4355B00D9CE33 /* ConvertCurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyViewModel.swift; sourceTree = "<group>"; };
 		9BC75CC123F57D8300D9CE33 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CA1838D69638B4EC71F94587 /* Pods-ConvertCurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConvertCurrency.debug.xcconfig"; path = "Target Support Files/Pods-ConvertCurrency/Pods-ConvertCurrency.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 		9BC75CAF23F433DF00D9CE33 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9BC75CB023F433F700D9CE33 /* Network.swift */,
+				9BC75CB023F433F700D9CE33 /* NetworManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 				9BC75CC223F57D8300D9CE33 /* Model.swift in Sources */,
 				9BC75C9D23F3F82700D9CE33 /* ConvertCurrencyViewController.swift in Sources */,
 				9BC75CA323F3F82700D9CE33 /* ConvertCurrency.xcdatamodeld in Sources */,
-				9BC75CB123F433F700D9CE33 /* Network.swift in Sources */,
+				9BC75CB123F433F700D9CE33 /* NetworManager.swift in Sources */,
 				9B67A61723F687AF005454E9 /* DataBase.swift in Sources */,
 				9BC75C9B23F3F82700D9CE33 /* AppDelegate.swift in Sources */,
 				9BC75CB623F4355B00D9CE33 /* ConvertCurrencyViewModel.swift in Sources */,

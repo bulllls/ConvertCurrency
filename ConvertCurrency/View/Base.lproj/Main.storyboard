@@ -194,15 +194,15 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="activity" destination="HUs-zi-pVI" id="EQH-4I-DHV"/>
+                        <outlet property="activityIndicator" destination="HUs-zi-pVI" id="EQH-4I-DHV"/>
                         <outlet property="activityView" destination="GLv-Zo-FJk" id="3fB-n5-Vs5"/>
-                        <outlet property="amount" destination="KvL-XZ-4la" id="1wI-7s-duO"/>
+                        <outlet property="amountValue" destination="KvL-XZ-4la" id="1wI-7s-duO"/>
+                        <outlet property="convertFrom" destination="Kti-fs-LoX" id="aWJ-GL-XTf"/>
+                        <outlet property="convertTo" destination="Tz4-Lg-6pT" id="C3e-2R-Yga"/>
+                        <outlet property="convertibleResult" destination="hki-wh-bQU" id="2oL-qe-sc6"/>
+                        <outlet property="currencyPicker" destination="lGJ-OU-I5i" id="7k0-z3-ucV"/>
                         <outlet property="firsStackView" destination="RUi-WZ-DNo" id="wgn-Iu-frq"/>
-                        <outlet property="from" destination="lGJ-OU-I5i" id="7k0-z3-ucV"/>
-                        <outlet property="fromLabel" destination="Kti-fs-LoX" id="aWJ-GL-XTf"/>
-                        <outlet property="result" destination="hki-wh-bQU" id="2oL-qe-sc6"/>
                         <outlet property="secondStackView" destination="yYM-LZ-HWo" id="qRY-Us-eSu"/>
-                        <outlet property="toLabel" destination="Tz4-Lg-6pT" id="C3e-2R-Yga"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
