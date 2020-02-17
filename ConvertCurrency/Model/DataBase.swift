@@ -15,11 +15,11 @@ class DataBase {
     
     func addNewObject(item: (key: String, value: String)) {
         try! self.realm.write() {
-            let newCyrrency = Currency()
-            newCyrrency.index = item.key
-            newCyrrency.fullDescription = item.value
-            self.realm.add(newCyrrency)
-            print(newCyrrency.index)
+            let newCurrency = Currency()
+            newCurrency.index = item.key
+            newCurrency.fullDescription = item.value
+            self.realm.add(newCurrency)
+            print(newCurrency.index)
         }
         self.currency = self.realm.objects(Currency.self)
     }
