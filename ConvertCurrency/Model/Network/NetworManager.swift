@@ -21,17 +21,14 @@ class NetworManager {
             .request(baseURL + "convert?format=json&from=\(from ?? "USD")&to=\(to ?? "RUB")&amount=\(amount ?? "0")",
                 method: .get,
                 headers: parametrs as? HTTPHeaders)
-            .responseJSON {
+            .responseData {
                 response in
                 switch response.result {
                 case .success(let value):
-                    guard
-                        let json = value as? NSDictionary,
-                        let results = json["rates"] as? [String : [String : String]],
-                        let result = results[to ?? "RUB"]?["rate_for_amount"]
+                    guard let rateInfo = try? JSONDecoder().decode(RateInfo.self, from: value)
                         else { return }
-                    completion(result)
-                    print(result)
+                    completion(rateInfo.rates[to ?? "RUB"]?["rate_for_amount"] ?? "RUB")
+                    print("RateInfo", rateInfo)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -51,7 +48,7 @@ class NetworManager {
                         let currencyList = try? JSONDecoder().decode(CurrencyList.self, from: value)
                         else { return }
                     completion(currencyList)
-                    print("CurrencyList",currencyList)
+                    print("CurrencyList",currencyList.status)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

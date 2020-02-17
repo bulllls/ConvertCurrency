@@ -4,9 +4,10 @@
 target 'ConvertCurrency' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
+  
   # Pods for ConvertCurrency
-	pod 'Alamofire'
+  pod 'Alamofire'
   pod 'RealmSwift'
-pod 'ReactiveKit'
+  pod 'ReactiveKit'
+  pod 'Bond'
 end

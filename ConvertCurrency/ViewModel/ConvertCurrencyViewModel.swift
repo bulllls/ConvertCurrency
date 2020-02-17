@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 import ReactiveKit
+import Bond
 
 class ConvertCurrencyViewModel {
-    //private let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+    let conversionResult = Observable<String>("0.0")
+    
     var networkManager = NetworManager()
     var currencyDataBase = DataBase()
-    var convertFrom: String?
-    var convertTo: String?
-    var convertAmount: String?
-    var conversionResult: String?
+    
     lazy var сurrenciesList = {
         return self.currencyDataBase.currency
     }
@@ -32,9 +32,9 @@ class ConvertCurrencyViewModel {
         }
     }
     
-    func getAmountConvertiblCurrency() {
-        networkManager.convertСurrency(from: convertFrom, to: convertTo, amount: convertAmount) { [weak self] (result) in
-            self?.conversionResult = result
+    func getAmountConvertiblCurrency(from: String?, to: String?, amount: String?) {
+        networkManager.convertСurrency(from: from, to: to, amount: amount) { [weak self] (result) in
+            self?.conversionResult.value = result
             print("RESULT", result)
         }
     }

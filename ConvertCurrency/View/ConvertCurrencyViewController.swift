@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveKit
+import Bond
 
 class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var currencyPicker: UIPickerView!
@@ -29,7 +30,13 @@ class ConvertCurrencyViewController: UIViewController {
         //не даем клавиатуре перекрывать inputField
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
+        
+        //Обновляем convertibleResult как только появился ответ из сети
+        viewModel.conversionResult.observeNext{ [weak self] value in
+            self?.convertibleResult.text = value
+        }.dispose(in: bag)
+        
+        
     }
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -55,26 +62,20 @@ class ConvertCurrencyViewController: UIViewController {
         amountValue.endEditing(true)
         activityIndicator.startAnimating()
         activityView.isHidden = false
-        viewModel.convertAmount = amountValue.text
-        viewModel.getAmountConvertiblCurrency()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.convertibleResult.text = self?.viewModel.conversionResult
+        viewModel.getAmountConvertiblCurrency(from: convertFrom.text, to: convertTo.text, amount: amountValue.text)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.activityIndicator.stopAnimating()
             self?.activityView.isHidden = true
         }
     }
     //выбираем другую валюту
     @IBAction func another(_ sender: Any) {
-        firsStackView.isHidden = true
         currencyPicker.reloadAllComponents()
+        firsStackView.isHidden = true
         secondStackView.isHidden = false
-        viewModel.convertFrom = viewModel.сurrenciesList().first?.index
-        viewModel.convertTo = viewModel.сurrenciesList().reversed().first?.index
     }
     //возвращаемся с новой валютой
     @IBAction func back(_ sender: Any) {
-        convertFrom.text = viewModel.convertFrom
-        convertTo.text = viewModel.convertTo
         secondStackView.isHidden = true
         firsStackView.isHidden = false
     }
@@ -101,9 +102,9 @@ extension ConvertCurrencyViewController: UIPickerViewDelegate, UIPickerViewDataS
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            viewModel.convertFrom = viewModel.сurrenciesList()[row].index
+            convertFrom.text = viewModel.сurrenciesList()[row].index
         default:
-            viewModel.convertTo = viewModel.сurrenciesList().reversed()[row].index
+            convertTo.text = viewModel.сurrenciesList().reversed()[row].index
         }
     }
     
