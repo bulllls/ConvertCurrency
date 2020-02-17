@@ -8,8 +8,10 @@
 
 import Foundation
 import UIKit
+import ReactiveKit
 
 class ConvertCurrencyViewModel {
+    //private let disposeBag = DisposeBag()
     var networkManager = NetworManager()
     var currencyDataBase = DataBase()
     var convertFrom: String?
@@ -23,7 +25,7 @@ class ConvertCurrencyViewModel {
     func getAndSaveIdCurrencies(){
         networkManager.fechAllCurrensyIndex { [weak self] (result) in
             if self?.currencyDataBase.currency.isEmpty ?? false {
-                for item in result {
+                for item in result.currencies {
                     self?.currencyDataBase.addNewObject(item: item)
                 }
             }

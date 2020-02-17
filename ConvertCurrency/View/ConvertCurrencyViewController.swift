@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveKit
 
 class ConvertCurrencyViewController: UIViewController {
     @IBOutlet weak var currencyPicker: UIPickerView!

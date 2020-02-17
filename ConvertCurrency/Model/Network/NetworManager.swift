@@ -38,21 +38,20 @@ class NetworManager {
         }
     }
     
-    func fechAllCurrensyIndex(completion: @escaping ([String : String]) -> Void) {
+    func fechAllCurrensyIndex(completion: @escaping (CurrencyList) -> Void) {
         Alamofire
             .request(baseURL + "list?format=json",
                      method: .get,
                      headers: parametrs as? HTTPHeaders)
-            .responseJSON {
+            .responseData {
                 response in
                 switch response.result {
                 case .success(let value):
                     guard
-                        let json = value as? NSDictionary,
-                        let results = json["currencies"] as? [String : String]
+                        let currencyList = try? JSONDecoder().decode(CurrencyList.self, from: value)
                         else { return }
-                    print(results)
-                    completion(results)
+                    completion(currencyList)
+                    print("CurrencyList",currencyList)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }

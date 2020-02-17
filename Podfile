@@ -8,4 +8,5 @@ target 'ConvertCurrency' do
   # Pods for ConvertCurrency
 	pod 'Alamofire'
   pod 'RealmSwift'
+pod 'ReactiveKit'
 end
